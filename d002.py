@@ -76,7 +76,28 @@ event_list = [
 
 
 def event_system(event_list:list[dict]) -> list[dict]:
-    pass
+    total_events = 0
+    alerts = []
+ 
+
+    for event in event_list:
+        total_events += 1
+        # REGRA 01
+        if event["severity"] >= 4 or event["type"] =="ERROR" and event["source"] == "INTEGRATION":
+            if event["type"] == "INFO":
+                continue
+
+            alert_generated= {"event_id": event["event_id"],"reason": "RULE 01"}
+            
+            alerts.append(alert_generated)
+        
+    result = {
+        "total_events": total_events,
+        "alerts": alerts
+    }
+
+    return result  
 
 analyze = event_system(event_list)
 print(analyze)
+
