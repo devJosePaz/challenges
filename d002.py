@@ -1,39 +1,34 @@
 """
-DESAFIO – ANÁLISE DE EVENTOS OPERACIONAIS (Python)
+DESAFIO – ANÁLISE DE EVENTOS DE RISCO (Python)
 
 Contexto:
-Sistema interno que recebe eventos operacionais de unidades
-(logística, saúde, integrações).
+Você recebe uma lista de eventos gerados por sistemas internos.
+Cada evento representa uma ocorrência isolada (erro, aviso ou informação).
 
 Entrada:
 Lista de eventos no formato:
 {
     "event_id": str,
-    "unit_id": str,
     "type": "ERROR" | "WARNING" | "INFO",
     "severity": int (1–5),
-    "source": "SYSTEM" | "USER" | "INTEGRATION",
-    "timestamp": str
+    "source": "SYSTEM" | "USER" | "INTEGRATION"
 }
 
 Regras:
-1. Evento é CRÍTICO se:
+1. Um evento deve gerar ALERTA se:
    - severity >= 4
-   - OU (type == "ERROR" e source == "INTEGRATION")
+   OU
+   - type == "ERROR" e source == "INTEGRATION"
 
-2. Unidade é INSTÁVEL se possuir 3+ eventos críticos.
-
-3. Eventos INFO nunca geram alerta.
+2. Eventos do tipo INFO nunca geram alerta,
+   independentemente da severidade.
 
 Saída esperada:
 {
     "total_events": int,
-    "critical_events": int,
-    "unstable_units": [unit_id],
     "alerts": [
         {
             "event_id": str,
-            "unit_id": str,
             "reason": str
         }
     ]
@@ -41,5 +36,7 @@ Saída esperada:
 
 Restrições:
 - Python puro
-- Código claro e explicável
+- Sem libs externas
+- Código simples e fácil de explicar
 """
+
