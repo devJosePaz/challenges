@@ -40,3 +40,43 @@ Restrições:
 - Código simples e fácil de explicar
 """
 
+event_list = [
+    # Deve gerar alerta: severity >= 4
+    {
+        "event_id": "evt_001",
+        "type": "WARNING",
+        "severity": 4,
+        "source": "SYSTEM"
+    },
+
+    # Deve gerar alerta: ERROR + INTEGRATION
+    {
+        "event_id": "evt_002",
+        "type": "ERROR",
+        "severity": 2,
+        "source": "INTEGRATION"
+    },
+
+    # NÃO deve gerar alerta: INFO nunca gera alerta
+    {
+        "event_id": "evt_003",
+        "type": "INFO",
+        "severity": 5,
+        "source": "SYSTEM"
+    },
+
+    # NÃO deve gerar alerta: ERROR comum, severity baixa, source USER
+    {
+        "event_id": "evt_004",
+        "type": "ERROR",
+        "severity": 2,
+        "source": "USER"
+    }
+]
+
+
+def event_system(event_list:list[dict]) -> list[dict]:
+    pass
+
+analyze = event_system(event_list)
+print(analyze)
