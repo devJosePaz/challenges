@@ -75,21 +75,26 @@ event_list = [
 ]
 
 
-def event_system(event_list:list[dict]) -> list[dict]:
+def event_system(event_list:list[dict]) -> dict:
     total_events = 0
     alerts = []
  
 
     for event in event_list:
         total_events += 1
-        # REGRA 01
-        if event["severity"] >= 4 or event["type"] =="ERROR" and event["source"] == "INTEGRATION":
-            if event["type"] == "INFO":
-                continue
-
-            alert_generated= {"event_id": event["event_id"],"reason": "RULE 01"}
-            
+        # RULE 02 - IGNORED EVENT WITH TYPE 'INFO'
+        if event["type"] == "INFO":
+            continue
+        # RULE 01 - SEVERITY >= 4
+        if event["severity"] >= 4:
+            alert_generated = {"event_id": event["event_id"],"reason": "SEVERITY >= 4"}
             alerts.append(alert_generated)
+
+        # RULE 02 - type == "ERROR" and source == "INTEGRATION"
+        if event["type"] == "ERROR" and event["source"] == "INTEGRATION":
+            alert_generated = {"event_id": event["event_id"], "reason": "ERROR FROM INTEGRATION"}
+            alerts.append(alert_generated)
+
         
     result = {
         "total_events": total_events,
